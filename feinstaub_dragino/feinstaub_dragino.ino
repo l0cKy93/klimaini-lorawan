@@ -143,14 +143,12 @@ void do_send(osjob_t* j) {
   // Payload to send (uplink)
 
   //Feinstaubsensor auslesen
-  if (readPMSdata(&pmsSerial)) {
-      //TODO: Um andere Sensorwerte ergaenzen
-      static *message;
-      message = calloc(1, sizeof(uint16_t) );
-      
+  if (readPMSdata(&pmsSerial)) { 
+      static uint16_t *message; //uint16_t
+      message = calloc(1, sizeof(uint16_t) );      
       *message= data.pm10_standard;
       //*(message+1)= data.pm25_standard;
-      //*(message+1)= data.pm25_standard;
+      //*(message+2)= data.pm25_standard;
 
       // Check if there is not a current TX/RX job running
       if (LMIC.opmode & OP_TXRXPEND) {
